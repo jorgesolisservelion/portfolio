@@ -1,3 +1,11 @@
+# Data Scientist
+
+### Education
+
+### Work Experience
+
+### Projects
+
 # Portfolio / Portafolio
 *English:*  
 Data Science and Machine Learning Project Portfolio  
