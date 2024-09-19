@@ -1,0 +1,101 @@
+﻿entry_id,Publisher Name,Keyword,Match Type,Campaign,Keyword Group,Category,Bid Strategy,Status,Search Engine Bid,Impressions,Avg. Pos.,Avg. Cost per Click
+mkt_4036,Overture - Global,flight to nice,Advanced,Unassigned,Unassigned,nice,Position 1-2 Target,Paused,$1.01 ,"59,642",1.71,$0.70 
+mkt_2533,Overture - Global,air france,Advanced,Unassigned,Unassigned,airfrance,Position 1-2 Target,Paused,$0.68 ,"441,707",1.76,$0.67 
+mkt_4114,Google - Global,[air france],Exact,Air France Global Campaign,Air France,airfrance,Position 1- 3,Unavailable,$1.25 ,"107,222",1.83,$0.44 
+mkt_3635,Google - Global,air france com,Broad,Air France Global Campaign,Air France Website,airfrancewebsite,Position 1- 3,Unavailable,$0.00 ,"2,703",1.48,$0.31 
+mkt_1937,Overture - US,cheap flight to europe,Advanced,Unassigned,Unassigned,europe,Position 1-4 Bid Strategy,Paused,$1.26 ,"117,937",1.78,$1.15 
+mkt_3304,Google - US,air france italy,Broad,Air France Branded,Air France Website,uncategorized,,Live,$15.00 ,347,1.04,$4.08 
+mkt_278,Google - US,airfrance com,Broad,Air France Branded,Air France Website,uncategorized,Postiion 1-4 Bid Strategy,Live,$11.50 ,"22,668",1.05,$0.43 
+mkt_896,Google - US,flights to paris,Broad,Paris & France Terms,Paris,uncategorized,Position 5-10 Bid Strategy,Live,$10.00 ,"31,972",1.36,$2.47 
+mkt_912,Google - US,france airline,Broad,Geo Targeted New York,New York to France Sale,uncategorized,Position 5-10 Bid Strategy,Live,$6.25 ,"1,319",1.23,$1.84 
+mkt_2283,Google - Global,paris ticket,Broad,Air France Brand & French Destinations,Paris,uncategorized,,Unavailable,$5.00 ,488,1.65,$2.69 
+mkt_2709,Overture - Global,air travel to paris,Standard,Unassigned,Unassigned,paris,Position 1-2 Target,Unavailable,$7.50 ,448,1.86,$0.40 
+mkt_2790,Google - US,paris cheap ticket,Broad,Geo Targeted Boston,Boston to Paris Sale,uncategorized,Position 5-10 Bid Strategy,Paused,$6.25 ,18,1.83,$1.71 
+mkt_1281,Overture - US,greece travel,Advanced,Unassigned,Unassigned,greece,Position 1-4 Bid Strategy,Paused,$1.28 ,"348,718",1.62,$1.54 
+mkt_004,Google - US,nice flights,Broad,French Destinations,Nice,uncategorized,Postiion 1-4 Bid Strategy,Live,$10.00 ,"1,859",1.16,$2.12 
+mkt_867,Yahoo - US,paris cheap ticket,Standard,Paris & France Terms,Paris,uncategorized,,Live,$6.25 ,748,1,$1.41 
+mkt_4321,Google - US,athens flights,Broad,Google_Yearlong 2006,Google|Athens,uncategorized,Postiion 1-4 Bid Strategy,Paused,$6.25 ,"9,977",1.6,$2.02 
+mkt_3956,Overture - US,air france airline,Standard,Unassigned,Unassigned,airfrance,Position 1-4 Bid Strategy,Paused,$0.51 ,"21,407",1.3,$0.52 
+mkt_4185,MSN - Global,travel in paris,Broad,Air France Brand & French Destinations,Paris,uncategorized,Position 2-5 Bid Strategy,Deactivated,$0.00 ,"4,798",2.95,$1.76 
+mkt_1657,Overture - Global,flight to marseille,Advanced,Unassigned,Unassigned,marseille,,Paused,$8.75 ,"11,620",1.17,$0.70 
+mkt_2860,Google - US,paris flight,Broad,Geo Targeted Seattle,Seattle to Paris Sale,uncategorized,Position 2-5 Bid Strategy,Paused,$5.00 ,972,1.18,$2.21 
+mkt_2869,Google - Global,trip to paris france,Broad,Air France Brand & French Destinations,Paris,uncategorized,,Unavailable,$5.00 ,185,1.31,$2.89 
+mkt_3137,Overture - US,europe vacation,Standard,Unassigned,Unassigned,europe2,Position 1-4 Bid Strategy,Paused,$8.75 ,"42,914",1.25,$1.13 
+mkt_2927,Google - Global,france flight,Broad,Air France Global Campaign,France,france,Position 1- 3,Unavailable,$3.75 ,"19,877",1.99,$2.86 
+mkt_2978,Overture - Global,air france schedule,Advanced,Unassigned,Unassigned,airfrance,Position 1-2 Target,Paused,$0.33 ,"2,192",1.52,$0.36 
+mkt_2091,Google - US,italy airline,Broad,Geo Targeted San Francisco,San Francisco to Italy Sale,uncategorized,Position 5-10 Bid Strategy,Unavailable,$6.25 ,163,1.57,$1.61 
+mkt_1484,Google - US,cont:geo targeted boston::boston to paris sale,N/A,Geo Targeted Boston,Boston to Paris Sale,uncategorized,,Unavailable,$7.50 ,0,0,$0.00 
+mkt_2047,Yahoo - US,france cheap ticket,Standard,Paris & France Terms,France,uncategorized,,Live,$6.25 ,181,1,$1.37 
+mkt_093,Google - US,cont:google_yearlong 2006::google|europe,N/A,Google_Yearlong 2006,Google|Europe,uncategorized,,Unavailable,$7.50 ,"157,285",2.31,$0.28 
+mkt_2114,Overture - US,barcelona flight,Advanced,Unassigned,Unassigned,barcelona,Position 1-4 Bid Strategy,Paused,$0.88 ,"66,370",1.37,$0.75 
+mkt_685,Google - Global,paris airline,Broad,Air France Global Campaign,Paris,uncategorized,Position 1- 3,Unavailable,$2.50 ,"7,483",1.82,$1.45 
+mkt_4409,MSN - Global,air france com,Broad,Air France Brand & French Destinations,Air France Website,uncategorized,Position 1-4 Bid Strategy,Deactivated,$0.00 ,"2,022",1.04,$0.55 
+mkt_463,Yahoo - US,airfrance tickets,Advanced,Air France Branded,Air France Brand,uncategorized,,Live,$6.25 ,"1,669",1.72,$1.12 
+mkt_1379,Google - US,flights to nice,Broad,French Destinations,Nice,uncategorized,Postiion 1-4 Bid Strategy,Live,$10.00 ,"6,903",1.21,$2.23 
+mkt_087,Overture - US,discount airfare,Advanced,Unassigned,Unassigned,discount,Position 1-4 Bid Strategy,Unavailable,$7.50 ,"836,845",1.2,$1.25 
+mkt_728,Yahoo - US,airfrance us,Advanced,Air France Branded,Air France Website,uncategorized,,Live,$7.50 ,714,1.16,$0.57 
+mkt_663,Google - Global,france plane tickets,Broad,Air France Global Campaign,France,france,Position 1- 3,Unavailable,$6.25 ,"1,368",3.21,$3.39 
+mkt_2141,Overture - US,cheap airline ticket to europe,Advanced,Unassigned,Unassigned,europe,Position 1-4 Bid Strategy,Paused,$0.81 ,"3,864",2.1,$0.85 
+mkt_380,Google - US,flights to madrid,Broad,Western Europe Destinations,Madrid,uncategorized,Position 5-10 Bid Strategy,Unavailable,$6.25 ,"4,573",4.91,$1.38 
+mkt_3413,Google - Global,paris cheap flights,Broad,Air France Brand & French Destinations,Paris,uncategorized,,Unavailable,$5.00 ,"2,321",1.66,$2.24 
+mkt_3291,Google - US,air france germany,Broad,Air France Branded,Air France Website,uncategorized,,Live,$15.00 ,192,1.01,$2.87 
+mkt_2302,Google - US,france airfare sale,Broad,Geo Targeted Miami,Miami to France Sale,uncategorized,Position 5-10 Bid Strategy,Paused,$6.25 ,2,1,$2.76 
+mkt_2014,Google - Global,paris fares,Broad,Air France Brand & French Destinations,Paris,uncategorized,,Unavailable,$5.00 ,"1,298",1.56,$2.74 
+mkt_3004,Overture - US,vacation in greece,Advanced,Unassigned,Unassigned,greece,Position 1-4 Bid Strategy,Paused,$1.40 ,"75,151",2.61,$1.27 
+mkt_4188,Google - US,air france ticket,Broad,Air France Branded,Air France Brand,uncategorized,Position 1 -2 Target,Live,$1.44 ,"13,032",1.92,$2.28 
+mkt_3913,Overture - US,airfrance.com/us,Standard,Unassigned,Unassigned,airfrance,,Paused,$7.50 ,98,0.96,$0.33 
+mkt_4475,Overture - Global,new york to paris,Advanced,Unassigned,Unassigned,paris,Position 1-2 Target,Sent,$0.73 ,"2,364",3.63,$0.63 
+mkt_1016,Overture - Global,cheap airline ticket to france,Advanced,Unassigned,Unassigned,france,Position 1-2 Target,Sent,$0.31 ,"9,279",2.4,$0.62 
+mkt_3120,Google - US,travel to paris,Broad,Paris & France Terms,Paris,uncategorized,Position 5-10 Bid Strategy,Paused,$10.00 ,"8,683",1.88,$3.36 
+mkt_048,Yahoo - US,european airline,Advanced,Western Europe Destinations,Europe,uncategorized,,Paused,$6.25 ,634,1.46,$1.78 
+mkt_286,Google - Global,paris tourism,Broad,Air France Brand & French Destinations,Paris,uncategorized,,Unavailable,$5.00 ,"1,667",1.19,$3.00 
+mkt_1116,Overture - US,athens ticket,Advanced,Unassigned,Unassigned,athens,Position 5-10 Bid Strategy,Paused,$0.58 ,226,2.86,$0.96 
+mkt_441,Google - US,france trip,Broad,Paris & France Terms,France,uncategorized,Pos 3-6,Paused,$10.00 ,"2,117",1.42,$5.08 
+mkt_4330,Google - US,cont:google_yearlong 2006::google|johannesburg,N/A,Google_Yearlong 2006,Google|johannesburg,uncategorized,,Unavailable,$7.50 ,138,2.17,$0.24 
+mkt_2509,Overture - Global,discount paris flight,Advanced,Unassigned,Unassigned,paris,Position 1-2 Target,Sent,$0.73 ,"13,043",2.84,$0.98 
+mkt_3183,Google - US,greece airfares,Broad,Western Europe Destinations,Greece,uncategorized,Position 5-10 Bid Strategy,Unavailable,$6.25 ,194,4.42,$2.15 
+mkt_458,Google - US,flights to delhi,Broad,Google_Yearlong 2006,Google|Delhi,uncategorized,Position 5-10 Bid Strategy,Paused,$6.25 ,812,1.09,$3.59 
+mkt_345,Yahoo - US,cheap international airfare,Advanced,Geo Targeted San Francisco,Cheap International San Francisco,uncategorized,,Paused,$6.25 ,463,3.28,$2.78 
+mkt_992,Google - US,international cheap ticket,Broad,Google_Yearlong 2006,Google|International General,uncategorized,Position 5-10 Bid Strategy,Paused,$6.25 ,403,1.55,$2.50 
+mkt_3253,Overture - Global,atlanta vacation,Standard,Unassigned,Unassigned,ebsaleend7.28,,Paused,$8.75 ,578,1.53,$1.60 
+mkt_809,MSN - US,france airlines,Broad,Air France Brand & French Destinations,France,uncategorized,,Live,$0.00 ,247,1.23,$1.50 
+mkt_3830,Overture - Global,tahiti airline,Standard,Unassigned,Unassigned,tahiti,,Paused,$10.00 ,208,2.56,$0.51 
+mkt_3096,Google - US,paris air fare,Broad,Geo Targeted Philadelphia,Philadelphia to Paris Sale,uncategorized,Position 5-10 Bid Strategy,Paused,$6.25 ,1,1,$1.54 
+mkt_103,Google - US,paris air flights,Broad,Geo Targeted Houston,Houston to Paris Sale,uncategorized,Position 5-10 Bid Strategy,Paused,$6.25 ,3,1,$1.61 
+mkt_2489,MSN - Global,france travel,Broad,Air France Brand & French Destinations,France,uncategorized,Position 1-4 Bid Strategy,Deactivated,$0.00 ,"2,290",2.71,$7.10 
+mkt_4111,Google - US,turkey tickets,Broad,Google_Yearlong 2006,Google|Turkey,uncategorized,Position 5-10 Bid Strategy,Paused,$6.25 ,"1,881",1.67,$2.08 
+mkt_3391,Overture - Global,airline ticket paris,Advanced,Unassigned,Unassigned,airline,Position 1-2 Target,Paused,$1.08 ,"1,331",1.73,$1.18 
+mkt_2834,Yahoo - US,rome cheap flight,Standard,Western Europe Destinations,Rome,uncategorized,,Live,$3.71 ,35,1.03,$1.30 
+mkt_1371,Overture - Global,cairo airfare,Standard,Unassigned,Unassigned,ebsaleend7.28,,Paused,$8.75 ,35,1.35,$0.53 
+mkt_3292,Overture - US,fly to rome,Advanced,Unassigned,Unassigned,fly,Position 5-10 Bid Strategy,Paused,$0.59 ,203,1.84,$0.63 
+mkt_4123,Overture - US,lowest airfare to paris,Standard,Unassigned,Unassigned,paris,Position 2-5 Bid Strategy,Paused,$0.48 ,41,2.15,$0.70 
+mkt_1779,Overture - Global,nyc to paris,Advanced,Unassigned,Unassigned,paris,,Sent,$8.75 ,873,2.08,$0.61 
+mkt_2191,Google - US,barcelona airports,Broad,Western Europe Destinations,Barcelona,uncategorized,Position 5-10 Bid Strategy,Paused,$6.25 ,812,4.94,$1.16 
+mkt_1378,Google - US,cheap europe flights,Broad,Geo Targeted Detroit,Cheap Europe Detroit,uncategorized,Position 5-10 Bid Strategy,Unavailable,$6.25 ,25,1.16,$2.22 
+mkt_2791,Google - US,paris airline ticket,Broad,Geo Targeted New York,New York to Paris Sale,uncategorized,Position 5-10 Bid Strategy,Live,$6.25 ,53,1.4,$1.91 
+mkt_1924,Overture - US,airport in paris france,Standard,Unassigned,Unassigned,paris,Position 2-5 Bid Strategy,Paused,$0.13 ,209,3.84,$0.13 
+mkt_1671,Google - US,international air tickets,Broad,Geo Targeted Los Angeles,International Los Angeles,uncategorized,Position 5-10 Bid Strategy,Unavailable,$6.25 ,22,1.41,$2.20 
+mkt_2506,Yahoo - US,france airline,Advanced,Geo Targeted Los Angeles,Los Angeles to France Sale,uncategorized,,Live,$6.25 ,13,1,$1.78 
+mkt_623,Google - US,europe ticket,Broad,Geo Targeted Boston,Europe Boston,uncategorized,Position 5-10 Bid Strategy,Unavailable,$6.25 ,19,1.16,$2.73 
+mkt_1629,Overture - Global,paris airfare special,Standard,Unassigned,Unassigned,paris,Position 1-2 Target,Sent,$0.38 ,76,3.14,$0.51 
+mkt_2066,MSN - US,cheap travel france,Broad,Air France Brand & French Destinations,France,uncategorized,,Live,$0.00 ,4,4.75,$8.48 
+mkt_3327,Overture - Global,air travel in france,Standard,Unassigned,Unassigned,france,Position 1-2 Target,Sent,$0.19 ,221,3.7,$0.31 
+mkt_4392,Google - US,italy cheap tickets,Broad,Geo Targeted DC,DC to Italy Sale,uncategorized,Position 5-10 Bid Strategy,Unavailable,$6.25 ,37,1.13,$2.96 
+mkt_3453,Overture - US,airplane ticket deal,Standard,Unassigned,Unassigned,airgeneral,Position 5-10 Bid Strategy,Paused,$0.39 ,138,2.29,$0.64 
+mkt_1436,Overture - US,discount airfare to greece,Advanced,Unassigned,Unassigned,discount,Position 5-10 Bid Strategy,Paused,$0.26 ,112,2.61,$0.56 
+mkt_2990,Yahoo - US,cheap international flight,Advanced,Geo Targeted Philadelphia,Cheap International Philadelphia,uncategorized,,Paused,$6.25 ,698,3.09,$4.22 
+mkt_2057,Google - US,cont:google_yearlong 2006::google|prague,N/A,Google_Yearlong 2006,Google|prague,uncategorized,,Unavailable,$7.50 ,694,2.77,$2.96 
+mkt_3916,Google - US,uk travel,Broad,Western Europe Destinations,UK,uncategorized,Position 5-10 Bid Strategy,Unavailable,$6.25 ,210,1.81,$4.14 
+mkt_3031,Yahoo - US,international airline fare,Advanced,Geo Targeted Houston,International Houston,uncategorized,,Paused,$6.25 ,2,1,$1.10 
+mkt_3289,Overture - US,international flight reservation,Standard,Unassigned,Unassigned,internationalflight,Position 5-10 Bid Strategy,Paused,$8.75 ,305,1.5,$0.75 
+mkt_735,Google - US,paris airfares,Broad,Geo Targeted Los Angeles,Los Angeles to Paris Sale,uncategorized,Position 5-10 Bid Strategy,Paused,$6.25 ,48,2.21,$1.76 
+mkt_3928,Yahoo - US,europe fare,Advanced,Western Europe Destinations,Europe,uncategorized,,Paused,$6.25 ,3,1.33,$5.89 
+mkt_561,Google - US,trip to nice,Broad,French Destinations,Nice,uncategorized,Position 2-5 Bid Strategy,Live,$10.00 ,203,1.07,$1.39 
+mkt_779,Google - US,barcelona travel,Broad,Google_Yearlong 2006,Google|Barcelona,barcelona,Position 5-10 Bid Strategy,Paused,$6.25 ,"5,367",2.2,$4.07 
+mkt_3702,Overture - Global,cheap flight to perpignan,Standard,Unassigned,Unassigned,perpignan,Position 1-2 Target,Paused,$0.34 ,74,1.82,$0.38 
+mkt_419,Google - Global,marseilles airport,Broad,Air France Global Campaign,Marseille,marseille,Position 1- 3,Unavailable,$11.25 ,238,1.13,$0.30 
+mkt_3767,Overture - US,low cost flight to paris,Standard,Unassigned,Unassigned,paris,Position 2-5 Bid Strategy,Paused,$0.14 ,124,3.43,$0.58 
+mkt_826,Google - US,venice ticket,Broad,Geo Targeted Houston,Houston to Venice Sale,uncategorized,Position 5-10 Bid Strategy,Paused,$6.25 ,7,1.43,$1.90 
+mkt_2876,Google - US,barcelona flights,Broad,Geo Targeted Houston,Houston to Barcelona Sale,uncategorized,Position 5-10 Bid Strategy,Paused,$6.25 ,141,1.43,$2.56 
+mkt_898,Google - Global,fly to nice,Broad,Air France Brand & French Destinations,Nice,uncategorized,,Paused,$5.00 ,19,1.11,$1.35 
+mkt_3040,Overture - US,budget travel france,Standard,Unassigned,Unassigned,france,Position 2-5 Bid Strategy,Paused,$0.45 ,111,4.31,$0.41 

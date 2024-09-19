@@ -1,0 +1,890 @@
+---
+title: "A1 Analysis in R"
+author: "Team 9"
+date: "2024-03-09"
+output: html_document
+---
+
+#### Setting up the environment
+
+Notes: setting up R environment by loading the libraries and installing packages.
+
+## Introduction
+
+The online ticket-selling strategies employed by Air France have proven to be 
+effective in augmenting the number of visits to their website, with Media Contacts 
+playing a pivotal role in achieving this outcome. As competition intensifies 
+and prices escalate, the duty is on Media Contacts to leverage their expertise 
+in marketing data analysis to optimize the returns on Air France's investments. 
+A thorough data-driven analysis, complemented by visualizations, was conducted 
+to discern the strengths and weaknesses of the campaign results, thereby 
+enabling the Marketing and Financial teams to make informed decisions on the 
+utilization of the insights and recommendations provided.
+
+Numerical outputs and visualizations were developed, adhering to the principle 
+that "Without this visual analytics solution, one would be stuck analyzing enormous 
+amounts of data in spreadsheets. Instead, the dashboards provide clear actionable 
+insights that drive the business forward." (Lay)The focus was predominantly on 
+the financial ramifications of the strategies. To this end, outputs were generated, 
+such as the Return on Investment (ROI), which facilitated the understanding and 
+visualization of the profitability of each investment by comparing the gain or 
+loss to its cost and assessing the return on investments. 
+(Beattie, 2024)Additionally, an output that depicted the Conversion Rate between 
+clicks and bookings was devised, accompanied by a respective Bar Chart, 
+to enhance comprehension of each search engine's performance.
+
+Search Engine Marketing (SEM) inherently involves bidding on keywords pertinent 
+to the advertised business, thereby rendering keyword research a vital component 
+for targeting the desired audience. (Ooi, 2023) By identifying keywords relevant 
+to their business, companies can craft effective ads that will appear when users 
+search for those keywords. Consequently, a focus was placed on word performance, 
+analyzing the different match types of word categories that resulted in bookings.
+
+
+```{r}
+# Install and load necessary packages 
+install.packages("tidytext",repos = 'http://cran.us.r-project.org' )
+install.packages("stringr",repos = 'http://cran.us.r-project.org' )
+install.packages("syuzhet",repos = 'http://cran.us.r-project.org')
+install.packages("textdata",repos = 'http://cran.us.r-project.org' )
+install.packages("DT", repos = 'http://cran.us.r-project.org')
+library(dplyr)
+library(ggplot2)
+library(wordcloud2)
+library(tidyverse)
+library(tm)
+library(tidytext)
+library(stringr)
+library(syuzhet)
+library(textdata)
+library(DT)
+
+# Setting up the current working directory
+getwd()
+setwd("C:\\Users\\Initha\\OneDrive\\Documents\\Business Challenge II")
+getwd()
+
+# Reading the CSV file
+data <- read.csv("case_data.csv")
+
+# Display first few rows
+head(data, 4)
+
+# Display the structure of the data
+str(data, 4)
+
+# Removing dollar sign from the variables
+data$Search.Engine.Bid<-gsub("\\$","",data$Search.Engine.Bid)
+data$Click.Charges<-gsub("\\$", "",data$Click.Charges)
+data$Avg..Cost.per.Click<-gsub("\\$","",data$Avg..Cost.per.Click)
+data$Total.Cost..Trans.<-gsub("\\$","",data$Total.Cost..Trans.)
+data$Amount <-gsub("\\$","",data$Amount)
+data$Total.Cost <-gsub("\\$","",data$Total.Cost)
+
+# Removing percentage sign from the variables
+data$Engine.Click.Thru..<-gsub("\\%","",data$Engine.Click.Thru..)
+data$Trans..Conv...<-gsub("\\%","",data$Trans..Conv...)
+
+# Removing commas from the variables
+data$Clicks<-gsub(",", "",data$Clicks)
+data$Click.Charges<-gsub(",", "",data$Click.Charges)
+data$Impressions <-gsub(",","",data$Impressions)
+data$Total.Cost..Trans.<-gsub(",","",data$Total.Cost..Trans.)
+data$Amount <-gsub(",","",data$Amount)
+data$Total.Cost <-gsub(",","",data$Total.Cost)
+
+# Checking for the missing values if any in the data
+sum(is.na(data))
+
+# Checking for the incomplete cases in the data
+data[!complete.cases(data),]
+
+#changing datatype from character to numeric
+data$Search.Engine.Bid <- as.numeric(data$Search.Engine.Bid)
+data$Clicks<-as.numeric(data$Clicks)
+data$Click.Charges <-as.numeric(data$Click.Charges)
+data$Avg..Cost.per.Click<-as.numeric(data$Avg..Cost.per.Click)
+data$Impressions <-as.numeric(data$Impressions)
+data$Engine.Click.Thru.. <-as.numeric(data$Engine.Click.Thru..)
+data$Trans..Conv... <-as.numeric(data$Trans..Conv...)
+data$Total.Cost..Trans. <-as.numeric(data$Total.Cost..Trans.)
+data$Amount <-as.numeric(data$Amount)
+data$Total.Cost <-as.numeric(data$Total.Cost)
+data$Total.Volume.of.Bookings <-as.numeric(data$Total.Volume.of.Bookings)
+
+str(data, 4)
+
+# Checking null values
+sum(is.na(data))
+
+```
+
+
+```{r}
+
+# Output 1
+
+# replace the blanks values in Bid Strategy as "NO BID"
+data[data$Bid.Strategy== "", "Bid.Strategy"] <- "NO BID"
+data[data$Bid.Strategy== "", "Bid.Strategy"]
+head(data$Bid.Strategy, 4)
+
+```
+
+
+#### Output 1
+
+Making sure that 'Bid.Strategy' column in the data has no blank values. 
+Replacing blanks with "NO BID" provides a clear, definitive label for entries 
+without a specified bidding strategy. This line enhances data integrity and makes 
+it easy to interpret 'Bid.Strategy' column.This brings consistency which is crucial 
+for filtering and analysis. Identifying and labeling entries as "NO BID" could reveal 
+how often and under what circumstances bid strategies are not specified. 
+This insight could lead to strategic adjustments, such as identifying opportunities for optimization.
+
+
+```{r}
+
+# Output 2
+
+# replace the NA values in match type as "NOT SPECIFIED"
+data[data$Match.Type == "N/A", "Match.Type"] <- "Not Specified"
+data[data$Match.Type== "N/A", "Match.Type"]
+head(data$Match.Type, 4)
+
+```
+
+
+#### Output 2
+
+The code looks through the Match Type column to search for all rows with N/A. 
+A new variable called "Not Specified" is also created. The new variable is set 
+to replace all N/A in Match Type. This is to preprocess the data by replacing 
+missing or placeholder values ("N/A") with a more descriptive label ("Not Specified"). 
+This to ensure the data do not have ambiguous values, which could affect data analysis.
+
+
+```{r}
+
+# Output 3
+
+# Summary statistics of numeric fields
+data_statistics <- summary(select(data, where(is.numeric)))
+print(head(data_statistics, 5))
+
+```
+
+
+#### Output 3
+
+This is a quick statistical summary of all numeric fields in the data. 
+It includes measures of central tendency (mean, median) and dispersion for 
+each numerical column. Such statistics are crucial for understanding the 
+distribution and scale of our data, helping us identify any outliers or 
+anomalies that may affect the analysis. All these numeric columns will 
+determine the cost and revenue analytically process of the analysis. 
+
+
+```{r}
+
+# Visualization 1
+
+#Creating box plots for Publisher and their Average cost for each clicks
+publisher_avg_cost <- ggplot(data = data, aes(x = Publisher.Name, 
+                                              y = Avg..Cost.per.Click))
+publisher_avg_cost + geom_boxplot()
+
+```
+
+
+#### Visualization 1
+
+The box plot shows the average cost per click for different publishers, such as Google and Yahoo. It highlights:
+
+1.	The price publisher pays for each click varies greatly depending on the company 
+whether the ads are run Globally or only in the United States.
+
+2.	Google generally charges more per click than MSN or Overture.
+
+3.	Overture frequently charges the lowest cost per click, in the United States. 
+
+4.	The horizontal line in the center of each box indicates the median cost, 
+higher the median more expensive the cost.
+
+5.	There are some cases where clicks are significantly less or more expensive than average. 
+
+6.	Each publisher has outliers, with Google Global having especially expensive outliers.
+
+7.	The cost of clicks varies depending on the organization. 
+
+This data helps businesses in decide where to place their advertisements in order 
+to achieve the highest return on investment.
+
+
+```{r}
+
+# Visualization 2
+
+# Calculating Cost per Click per Publisher Name
+publisher_cpc <- data %>%
+  group_by(Publisher.Name) %>%
+  summarize(Total_Cost = sum(Total.Cost), Total_Clicks = sum(Clicks), 
+            CPC = ifelse(Total_Clicks > 0, Total_Cost / Total_Clicks, 0)) %>%
+  arrange(desc(CPC))
+
+# Creating the bar chart for Cost per Click
+ggplot(publisher_cpc, aes(x = reorder(Publisher.Name, -CPC), y = CPC)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(x = "Publisher Name", y = "Cost per Click (CPC)", 
+       title = "Cost per Click by Publisher")
+
+```
+
+
+#### Visualization 2
+
+The bar chart shows average cost per click (CPC) for publishers. It highlights:
+
+1.	Google Global has the highest average cost-per-click, with more than 1.5 (CPC).
+
+2.	Google US follows closely with the second highest CPC.
+
+3.	MSN US has a somewhat high CPC, which is lower than the two Google categories.
+
+4.	CPCs for Overture US and MSN Global are similar, falling in the lower middle range.
+
+5.	Overture Global has a lower cost per click (CPC) than Overture US and MSN Global.
+
+6.	Yahoo US has the lowest CPC of the publishers listed. 
+
+The chart clearly shows CPC pricing differences amongst publishers that may 
+influences marketers. Advertisers may select Yahoo US for the most cost-effective clicks. 
+Google's services, while more expensive, may have a wider reach or perceived value.
+This data can help advertisers in budgeting campaigns and selecting cost-effective platforms.
+
+
+```{r}
+
+# Visualization 3
+
+# Aggregate and Sum Bookings by Publisher
+agg_book <- aggregate(Total.Volume.of.Bookings~Publisher.Name, data = data, FUN = sum)
+agg_book <- agg_book[order(-agg_book$Total.Volume.of.Bookings), ]
+
+# Creating bar chart for publisher and the booking
+ggplot(data = agg_book, aes(x = reorder(Publisher.Name, -Total.Volume.of.Bookings), 
+                            y = Total.Volume.of.Bookings)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Publisher Name", y = "Total Volume of Bookings", 
+       title = "volume of Bookings for various Publishers")
+
+```
+
+
+#### Visualization 3
+
+The bar chart shows the overall volume of bookings for various publishers. 
+The graphic provides a simple way to compare booking volumes across different 
+publishers and markets, representing that Google - US leads this statistic. It highlights:
+
+1.	Google - US has the largest overall volume of bookings, approaching 1500.
+
+2.	Yahoo - US comes in second, with slightly more than half the volume of Google - US.
+
+3.	Google - Global ranks third, with a somewhat lower overall volume than Yahoo - US.
+
+4.	Overture - US ranks fourth, closely followed by Overture - Global.
+
+5.	MSN - US and MSN - Global had the lowest total number of bookings among the 
+listed publishers, with MSN - Global having the fewest.
+
+In the bars for "US" market publishers are often higher than their "Global" 
+competitors, which could indicate that these publishers perform better or have 
+a stronger presence in the US market.
+
+
+```{r}
+
+# Output 4
+
+# Count of Publishers
+Publishers <- length(unique(data$Publisher.Name))
+print(paste("Publishers:", Publishers))
+
+```
+
+
+#### Output 4
+
+The analysis is about individual Publishers in the data. This will aid in determining 
+the effectiveness and reach of the Publishers' skills, as well as their consumer 
+involvement. Unique function is attached to the Publisher Name so that Publishers' 
+name that appears more than once, will not be counted more than one. 
+Length function is attached to the unique Publishers' name so that it counts the 
+total instead of listing. The insights are going to be based on Publisher's result
+so knowing their total is a way to go.
+
+
+```{r}
+
+# Visualization 4
+
+# Aggregate and Sum Clicks by Publisher:
+agg_clicks <- aggregate(Clicks~Publisher.Name, data = data, FUN = sum)
+agg_clicks <- agg_clicks[order(-agg_clicks$Clicks), ]
+
+#Bar chart for publisher and the clicks
+ggplot(data = agg_clicks, aes(x = reorder(Publisher.Name, -Clicks), 
+                                    y = Clicks)) +
+  geom_bar(stat = "identity", fill = "blue") +
+  labs(x = "Publisher Name", y = "Clicks", 
+       title = "Clicks for each Publishers")
+
+```
+
+
+#### Visualization 4
+
+The bar chart shows the clicks for several publishers from both the US and global 
+markets. Clicks are tracked for Google-US, Overture-US, Google-Global, Yahoo-US, 
+Overture-Global, MSN-US, and MSN-Global. It highlights:
+
+1.	Google – US received the most clicks, with the bar reaching more than 150,000, 
+showing a large lead over the other publishers.
+
+2.	Overture - US comes in second, but with fewer than two-thirds the number of 
+clicks as Google - US.
+
+3.	Google - Global is close behind Overture - US, suggesting a large global presence.
+
+4.	Yahoo - US and Overture - Global have comparable click volumes, which are both 
+lower than Google - Global but still significant.
+
+5.	MSN - US and MSN - Global had the fewest number of clicks, with MSN - Global having the least.
+
+This could reveal numerous aspects, including Google's dominance in the US market 
+and the global success of these publishers. It also demonstrates the huge contrast 
+in click volumes between marketplaces and publications.
+
+
+```{r}
+
+# Visualization 5
+
+# Calculating the ratio of Total Volume of Bookings to Clicks for each publisher
+publisher_cr <- data%>%
+  group_by(Publisher.Name) %>%
+  summarize(Total_Bookings = sum(Total.Volume.of.Bookings), Total_Clicks = sum(Clicks), 
+            Booking_Click_Ratio = ifelse(Total_Clicks > 0, Total_Bookings / Total_Clicks, 0)) %>%
+  arrange(desc(Booking_Click_Ratio))
+
+# Creating the bar chart
+ggplot(publisher_cr, aes(x = reorder(Publisher.Name, -Booking_Click_Ratio), 
+                         y = Booking_Click_Ratio)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  labs(x = "Publisher Name", y = "Bookings per Click Ratio", 
+       title = "Bookings per Click Ratio by Publisher")
+
+```
+
+
+#### Visualization 5
+
+The bar chart named "Bookings per Click Ratio by Publisher" that compares the 
+efficiency of bookings to clicks across various publishers in both the US and 
+global markets. It highlights:
+
+1.	Yahoo - US has the best bookings per click ratio, indicating that it converts 
+the most clicks into bookings when compared to its click count.
+
+2.	MSN - US comes next, with a slightly lower ratio than Yahoo - US but still 
+greater than the rest, demonstrating good market efficiency in the United States.
+
+3.	MSN - Global, Google - Global, and Google - US have successively lower ratios, 
+showing that while they receive a lot of clicks, the conversion to bookings is 
+not as great as Yahoo - US or MSN - US.
+
+4.	Overture - Global and Overture - US have the lowest bookings per click ratios, 
+implying that they may require more clicks to obtain a booking than others.
+
+This measure is frequently used to assess an ad publisher's performance in turning 
+clicks into bookings, with greater ratios being considered better. According to 
+the bars, some publishers may be more effective globally, while others may flourish 
+in the United States.
+
+
+```{r}
+
+# Output 5
+
+# Total clicks converted to Booking for each Publisher
+conversion_rates <- data %>%
+  group_by(Publisher.Name) %>%
+  summarise(Total_Clicks = sum(Clicks, na.rm = TRUE),
+            Total_Bookings = sum(Total.Volume.of.Bookings, na.rm = TRUE),
+            Conversion_Rate = (Total_Bookings / Total_Clicks) * 100) %>%
+  arrange(desc(Conversion_Rate))
+
+# Display the conversion rates
+print(conversion_rates)
+
+```
+
+
+#### Output 5
+
+This code is created to give an overview of the rate at which each Publishers, 
+clicks turns to booking. This shows how each cost the client pays for each click 
+for every publisher turns to revenue to the client. Total bookings were divided by 
+total clicks to show the rate clicks are converted. This shows how effective publishers 
+have been able to push adverts to the right customers. This have been arranged in 
+descending order for proper analysis. The results showed that Yahoo - US gave a 
+higher conversion rate of 1.45%. Meaning that 1.45% of every click we pay for turns 
+into booking which is the primary aim for business.
+
+
+```{r}
+
+# Output 6
+
+# Calculate Net Returns (Amount - Total Cost) by Publisher
+net_returns_publisher <- data %>%
+  group_by(Publisher.Name) %>%
+  summarise(
+    # Calculate net returns for each publisher
+    Net_Returns = sum(as.numeric(Amount)) - sum(as.numeric(Total.Cost)) 
+  ) %>%
+  # Arranging in descending order of net returns for fast analysis
+  arrange(desc(Net_Returns))  
+
+# Display Results
+print(net_returns_publisher)
+
+```
+
+
+#### Output 6
+
+This code is created to give an overview of the total returns received from the 
+investment in advertising with each Publisher. This shows the revenue generated from 
+each Publisher. This has been calculated as the Amount received less the cost for 
+each Publisher. This will be a metric in the analysis to determine whether the investment 
+is been optimized. This have been arranged in descending order for proper analysis. 
+From the results, it is seen that Google - US is giving a Net Returns of $1,316,772 
+followed by Yahoo _ US with $832,648. the next output will be to show if these results 
+are based on conversion rates or just because there were a lot of adverts placed that 
+brought out that returns. Further analysis will be conducted for investment optimization.
+
+
+```{r}
+
+# Visualization 6
+
+# Calculating ROI per Publisher Name
+publisher_roi <- data %>%
+  group_by(Publisher.Name) %>%
+  summarize(Total_Amount = sum(Amount), Total_Cost = sum(Total.Cost), 
+            ROI = ifelse(Total_Cost > 0, (Total_Amount - Total_Cost) / Total_Cost, 0)) %>%
+  arrange(desc(ROI))
+
+# Creating the bar chart for ROI
+ggplot(publisher_roi, aes(x = reorder(Publisher.Name, -ROI), y = ROI)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(x = "Publisher Name", y = "ROI", title = "ROI by Publisher")
+
+```
+
+
+#### Visualization 6
+
+The bar chart labelled "ROI by Publisher" that calculates the Return on Investment (ROI) 
+for various publishers. It highlights:
+
+1.	Yahoo - US has the greatest ROI, with a number greater than 15, suggesting 
+that investing in Yahoo's US advertisements yields much larger returns than other publishers.
+
+2.	MSN - Global and MSN - US come next, with MSN - Global marginally outperforming 
+MSN - US, indicating a good ROI for these areas.
+
+3.	Google - Global has a ROI of about 5, which is moderate compared to the others, 
+whereas Google - US is slightly lower, indicating a poorer return per investment in these regions.
+
+4.	Overture - Global has a ROI that is around half that of Google, indicating 
+inferior investment efficiency.
+
+5.	Overture - US has the lowest ROI on the chart, implying that investing in 
+Overture's US ads yields the lowest return compared to the others.
+
+The chart indicates which publishes and markets may generate higher financial 
+returns on advertising spend. Advertisers must take such data into account when 
+developing marketing strategy.
+
+
+```{r}
+
+# Output 7
+
+# Display calculated value
+publisher_roi
+
+```
+
+
+#### Output 7
+
+Publishers' ROI represents the Return on Investment. This shows how much the client 
+gets in return for every dollar it invest in advertising with each Publisher. This 
+is calculated as the Revenue divided by Total cost incurred in getting that Revenue. 
+This gives a fair idea in the analysis, which investment in a Publisher was giving best 
+optimization. It has been arranged in order to ease in the analysis. It can be seen from 
+the output that Yahoo - US gave a higher Return on Investment (ROI) of $18.20 which is 
+about $14 higher than Google - US which gave a higher Net Return. This shows that investing 
+more in advertisement with Yahoo - US will be a very good decision.
+
+
+```{r}
+
+# Visualization 7
+
+# Checking summary and the structure of the match type
+summary(data$Match.Type)
+str(data$Match.Type)
+
+# Plotting histogram of match type for the keywords
+# Creating a bar chart
+mat_typ <- ggplot(data= data, aes(x= Match.Type))
+mat_typ + geom_bar() +
+  labs(x = "Match Type", y = "Count", title = "Number of Match Type")
+
+```
+
+
+#### Visualization 7
+
+The bar chart displaying the count of various match types: Advanced, Broad, 
+Exact, Not Specified, and Standard. It highlights:
+
+1.	Broad match types have the largest count, with the bar exceeding 2000, 
+indicating that they are the most common or frequently occurring keywords in the data.
+
+2.	Advanced and Standard have significantly lower counts than Broad, with Advanced 
+marginally outperforming Standard.
+
+3.	The Exact match type has a very low count compared to the others, indicating 
+that it is the least popular or frequently used match type in this data.
+
+4.	Not Specified has no bar, indicating that there are no occurrences or that the count is minimal.
+
+This may indicate that when selecting a match type, the preference or effectiveness 
+may tilt strongly towards "Broad" match, depending on the context in which these 
+match types are used. Exact matches are rarely used, possibly because of their 
+limited nature. The absence of "Not Specified" could indicate that data in this 
+data is generally adequately categorized.
+
+
+```{r}
+
+# Visualization 8
+
+# Creating a bar chart
+rev<- ggplot(data= data, aes(x= Publisher.Name, y= Amount)) +
+  geom_bar(stat="identity") + 
+  labs(x = "Publisher Name", y = "Amount", title = "")
+rev
+
+```
+
+
+#### Visualization 8
+
+The bar chart that depicts the amounts linked with various publishers, 
+distinguishing between worldwide and US marketplaces. It highlights:
+
+1.	Google - US has the most by a substantial margin, greatly exceeding others, 
+showing a strong position in terms of the parameter being measured (revenue, ad expenditure, and so on).
+
+2.	Google - Global is the second highest, but only about a third of the amount 
+of Google US, indicating that Google's US market is significantly greater for this metric.
+
+3.	MSN - Global and MSN – US have nearly similar amounts, with MSN - Global 
+somewhat greater, indicating a balanced performance throughout these markets.
+
+4.	Overture – Global and Overture - US have the smallest amounts, with Overture - US 
+slightly higher than the global counterpart.
+
+5.	Yahoo - US is much higher than MSN and Overture, but much lower than Google.
+
+The distribution demonstrates Google's dominance, notably in the United States, 
+and implies that Yahoo, while not at Google's level, holds a solid position in 
+comparison to MSN and Overture. The close numbers for MSN global and US 
+presence may reflect consistent success across markets.
+
+
+```{r}
+
+# Visualization 9
+
+# Creating a bar chart
+amt_spnd <- ggplot(data= data, aes(x= Publisher.Name, y= Total.Cost)) +
+  geom_bar(stat="identity") +
+  labs(x = "Match Type", y = "Count", title = "Number of Match Type")
+amt_spnd
+
+```
+
+
+#### Visualization 9
+
+The bar chart depicting the "Total Cost" connected with various publishers, 
+with a logarithmic scale on the y-axis, as indicated by the "3e+05" style notation, 
+which reflects amounts in the hundreds of thousands. It highlights:
+
+1.	Google - US has the highest overall cost by a large margin, indicating that 
+this publisher has made a considerable investment in the US market.
+
+2.	Google - Global has the second-highest costs, although they are less than 
+half of those for Google - US, implying that Google's US operations may be more 
+cost-intensive or that spending is higher in the United States.
+
+3.	The costs of MSN - worldwide and MSN - US are similar, with the worldwide 
+costs slightly higher.
+
+4.	Overture - Global and Overture - US have the lowest expenses on the chart, 
+with US costs somewhat higher than global.
+
+5.	Yahoo - US has noticeable costs, which are much lower than Google but higher 
+than MSN and Overture's.
+
+The use of a logarithmic scale indicates a large range of values and aids 
+in comparing costs between publishers. The statistics may indicate where market 
+investment priorities lay or where the majority of resources are being directed.
+
+
+```{r}
+
+# Visualization 10
+
+## word cloud
+names(data)[names(data) == 'Keyword'] <- 'text'
+
+wld_cld <- VCorpus(VectorSource(data$text))
+wld_cld <- tm_map(wld_cld, content_transformer(tolower))  # convert to lower case
+wld_cld <- tm_map(wld_cld, removePunctuation)             # remove punctuation
+wld_cld <- tm_map(wld_cld, removeNumbers)                 # remove numbers
+wld_cld <- tm_map(wld_cld, stripWhitespace)               # remove redundant spaces
+
+tidy_text <- tidy(wld_cld)
+tidy_text <- data %>%
+  mutate(row = row_number()) %>%
+  unnest_tokens(word, text)
+
+print(colnames(tidy_text))
+print(colnames(stop_words))
+
+tidy_text <- tidy_text %>%
+  anti_join(stop_words, by = "word")
+
+word_freq <- tidy_text %>%
+  count(word, sort = TRUE)
+print(head(word_freq, 4))
+
+wordcloud2(word_freq,
+           color='random-light',
+           shape = 'cloud',
+           rotateRatio = 1)
+
+```
+
+
+#### Visualization 10
+
+The word cloud, which is a visual representation of text data in which the size 
+of each word represents its frequency or relevance. Travel-related terms, 
+notably flights and air travel, dominate this word cloud. 
+Important findings from the word cloud:
+
+1.	The word "flight" and "cheap" are the most common, implying a heavy emphasis 
+on low-cost air travel.
+
+2.	The titles of various European cities and countries, such as "France," 
+"Paris," "Rome," "Italy," and "Europe," reflect a concentration on this region.
+
+3.	Words like "Tickets," "Fares," "Airfare," and "Discount" are also used frequently, 
+highlighting the cost of air travel.
+
+4.	The appearance of the word "Airline" alongside specific cities shows that 
+the data is related to searches or discussions regarding airlines that serve these areas.
+
+5.	The term "airport" and the names of specific cities denote a possible study 
+of air travel routes or destinations.
+
+Overall, the word cloud appears to indicate subjects connected to searching for 
+or discussing economical flight.
+
+
+```{r}
+
+# Output 8
+
+# Defining a data frame named kayak_tab
+kayak_tab <- data.frame(
+  Search_Engine = "Kayak",
+  Clicks = 2839,
+  Media_Cost = 3567.13,
+  Total_Bookings = 208,
+  Avg_Ticket = 1123.53,
+  Total_Revenue = 233694.00,
+  Net_Revenue = 230126.87,
+  stringsAsFactors = FALSE
+)
+
+# Display an interactive table with DT
+datatable(kayak_tab, options = list(pageLength = 5, scrollX = TRUE))
+
+# Display kayak data as a tabular output
+print(kayak_tab)
+
+```
+
+
+#### Output 8
+
+Clicks (2839), this metric indicating a reasonable degree of user participation. 
+Media Cost ($3567.13), the total campaign budget. Total Bookings (208), number of successful 
+transactions resulting from clicks. Average Ticket ($1123.53), high revenue suggests a 
+premium offering or numerous items per transaction. Total Revenue ($233694.00) is the campaign's 
+gross income. Net Revenue ($230126.87) profit after deducting ad cost, indicating a very 
+successful campaign. Revenue on ads, exceptionally high, with each dollar invested yielding about 
+$65.49. Conversion Rate at 7.32%, it demonstrates strong performance in converting clicks 
+into bookings. CPA at $17.15 per booking, the campaign is reasonably priced. Overall, 
+the data suggests a profitable ad campaign, but this does not account for other operating expenditures.
+
+
+```{r}
+
+# Output 9
+
+# Calculate Cost Per Click for each publisher
+Cost_per_Click_Publisher <- data %>%
+  group_by(Publisher.Name) %>%
+  summarise(
+    Total_Cost = sum(as.numeric(Total.Cost), na.rm = TRUE),  
+    # Sum up clicks, also ignoring NA values
+    Total_Clicks = sum(Clicks, na.rm = TRUE),  
+    # Calculate CPC; avoid division by zero by setting CPC to NA when no clicks are present
+    Cost_Per_Click = ifelse(Total_Clicks > 0, Total_Cost / Total_Clicks, NA)  
+  ) %>%
+  arrange(desc(Cost_Per_Click)) 
+
+# Display the calculated Cost-Per_Click for each publisher
+print(Cost_per_Click_Publisher)
+
+```
+
+
+#### Output 9
+
+This operation is aimed at evaluating the cost efficiency of clicks across different 
+publishers. After knowing the Net Returns and Return on Investment by Publishers, 
+knowing cost per click for each publisher will help the analyse how to place advertisement 
+with the publishers that will give the desired bookings whiles controlling or reducing 
+the cost associated thereof. This has calculated by dividing the total cost by the 
+total clicks by each publisher to determine cost per click. The lower the cost per click, 
+the better. However, that will be conclusive if the lower clicks are leading to higher 
+bookings and higher returns on investment. Yahoo - US have the lowest cost per click of 
+$1.01, followed by MSN - Global with $1.10 and Google – Global Google - US having 
+$1.89 and $1.84 respectively.
+
+
+```{r}
+
+# Output 10
+
+# Calculating metrics by Match Type
+Match_type_metrics <- data %>%
+  group_by(Match.Type) %>% 
+  summarise(
+    Total_Clicks = sum(Clicks, na.rm = TRUE),
+    Total_Impressions = sum(Impressions, na.rm = TRUE),
+    Total_Bookings = sum(Total.Volume.of.Bookings, na.rm = TRUE),
+    Conversion_Rate = (Total_Bookings / Total_Clicks) * 100
+  ) %>%
+  mutate(Conversion_Rate = ifelse(is.nan(Conversion_Rate), 0, Conversion_Rate)) # Replace NaN with 0 in case of division by zero
+
+# Display the calculated metrics
+print(Match_type_metrics)
+
+```
+
+
+#### Output 10
+
+In Search Engine Marketing and Optimization, keywords play active role and must be 
+selected carefully. For this reason, the analysis focuses on keyword analysis in the 
+match type category. The goal of keyword match type analysis is to establish which 
+match types used in advertisements result in the most bookings, while keeping in mind 
+that the goal is to generate bookings rather than clicks. This can help you understand 
+how different match types affect overall campaign performance, identifying areas where 
+you may improve conversion rates and effectiveness through optimization. The results 
+revealed that exact match types had the greatest conversion rate of 1.48. 
+As a result, it is recommended that you employ exact match keywords.
+
+
+## Top three actionable insights
+
+Through the analytically processes have extracted pivotal findings:
+
+1. The expenditure analysis highlights that a significant portion of the 
+search engine marketing budget is allocated to Google - Global and Google - US. 
+These platforms, while generating the highest click-through (180,208 clicks) 
+and booking volume, exhibit modest returns on investment (ROI)—4.95 for Google - Global 
+and 3.96 for Google - US.It is suggested that the Finance and Marketing teams collaborate 
+to refine the budget allocation for these platforms to enhance efficiency and optimize ROI. 
+
+2. An in-depth ROI analysis indicates a standout performance by Yahoo as the 
+search engine marketing channel, yielding an ROI of 18.22. Despite only 7.63% 
+of the search engine marketing budget being directed towards Yahoo, it delivers 
+the most favorable conversion rate at 1.45 and maintains the lowest cost per 
+click at $1.01. It is advised to redirect funds from Google to Yahoo, 
+anticipating improved outcomes without escalating the overall marketing spend.
+
+3. The keyword strategy assessment reveals that 'Broad' match type predominates 
+the usage, with 45,294 instances leading to 236,914 impressions and 672 bookings. 
+This match type achieves the highest conversion rate at 1.48 compared to its 
+counterparts. Data underscores the strategic advantage of targeting precise 
+keywords to maximize conversion efficiency. The Marketing team is encouraged 
+to utilize the Word Cloud for a granular analysis to determine the most 
+impact keywords for our campaigns, prioritizing high-conversion keywords 
+and eliminating or reducing spending on low-performing keywords. 
+
+
+## Conclusion
+
+In conclusion, Yahoo has been identified as the most cost-effective search engine 
+in terms of cost per click and return on investment, positioning it as the optimal 
+choice for AirFrance. It is advisable for AirFrance to reallocate a portion of 
+its budget from Google to Yahoo, thereby enhancing revenue optimization without 
+increasing the overall investment. To ensure the effectiveness of this strategy, 
+it is recommended that the results be monitored on a monthly basis to maintain 
+a record of the strategy's performance.
+
+
+## Bibliography
+Beattie, A. (2024, 2 28). ROI: Return on Investment Meaning and Calculation Investopedia. 
+Retrieved from 
+<https://www.investopedia.com/articles/basics/10/guide-to-calculating-roi.asp>
+
+Lay, D. (n.d.). A Guide To Data Driven Decision Making: What It Is, Its Importance, & How To Implement It. 
+Retrieved from tableau: 
+<https://www.tableau.com/learn/articles/data-driven-decision-making>
+
+Ooi, J. (2023, 08 18). The Importance of Keyword Research in SEM: Maximizing Your Online Visibility. 
+Retrieved from nightowl: 
+<https://nightowl.sg/blog/the-importance-of-keyword-research-in-sem-maximizing-your-online-visibility/>
+
+
+
+
+
